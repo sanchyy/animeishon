@@ -5,7 +5,7 @@ const asin  = (x) => Math.asin(x);
 const atan  = (x) => Math.atan(x);
 const sin   = (x) => Math.sin(x);
 const dist  = (x1,y1,x2,y2) => Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-const map   = (val, start1, stop1, start2, stop2, bul) =>(val - start1) / (stop1 - start1) * (stop2 - start2) + start2;
+const re_map   = (val, start1, stop1, start2, stop2, bul) =>(val - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 const floor  = (x) => Math.floor(x);
 const rect  = (x,y,z) => new THREE.Mesh(new THREE.BoxGeometry(x, y, z), new THREE.MeshBasicMaterial({ color: 0x00F5FF}));
 const edges = (geom, col) => new THREE.LineSegments( new THREE.EdgesGeometry( geom ), new THREE.LineBasicMaterial({ color: col, linewidth:1 }));
@@ -53,8 +53,8 @@ function updateWave () {
     x = elem.position.x;
     z = elem.position.z;
     let d   = dist(x,z,w*SIZE/2,w*SIZE/2); //distancia al centre
-    let off  = map(d,0,MAXD,-PI,PI);
-    let h   = floor(map(sin(angle+off), -1, 1, 0, 400)) /45;
+    let off  = re_map(d,0,MAXD,-PI,PI);
+    let h   = floor(re_map(sin(angle+off), -1, 1, 0, 400)) /45;
     let xx  = elem.geometry.parameters.width;
     let zz  = elem.geometry.parameters.depth;
     elem.scale.set(xx,h,zz)
