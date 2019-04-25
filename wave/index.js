@@ -4,6 +4,7 @@ const PI_Q  = Math.PI/4;
 const asin  = (x) => Math.asin(x);
 const atan  = (x) => Math.atan(x);
 const sin   = (x) => Math.sin(x);
+const cos   = (x) => Math.cos(x);
 const dist  = (x1,y1,x2,y2) => Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 const re_map   = (val, start1, stop1, start2, stop2, bul) =>(val - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 const floor  = (x) => Math.floor(x);
