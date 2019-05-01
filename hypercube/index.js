@@ -1,6 +1,25 @@
-let p4 = (x,y,z,w) => {this.x=x; this.y=y; this.z=z; this.w=w;}
-let p3  = (x,y,z) => {this.x=x; this.y=y; this.z=z;} 
+let p4 = function (x,y,z,w) {this.x=x; this.y=y; this.z=z; this.w=w;}
+let p3 = function (x,y,z) {this.x=x; this.y=y; this.z=z;} 
+let hypercube  = []
+let projection = []
 const IM = [[1,0,0,0],[0,1,0,0],[0,0,1,0]];
+
+hypercube[0]  = new p4(-50,-50,-50,50);
+hypercube[1]  = new p4(50,-50,-50,50);
+hypercube[2]  = new p4(50,50,-50,50);
+hypercube[3]  = new p4(-50,50,-50,50);
+hypercube[4]  = new p4(-50,-50,50,50);
+hypercube[5]  = new p4(50,-50,50,50);
+hypercube[6]  = new p4(50,50,50,50);
+hypercube[7]  = new p4(-50,50,50,50);
+hypercube[8]  = new p4(-50,-50,-50,-50);
+hypercube[9]  = new p4(50,-50,-50,-50);
+hypercube[10] = new p4(50,50,-50,-50);
+hypercube[11] = new p4(-50,50,-50,-50);
+hypercube[12] = new p4(-50,-50,50,-50);
+hypercube[13] = new p4(50,-50,50,-50);
+hypercube[14] = new p4(50,50,50,-50);
+hypercube[15] = new p4(-50,50,50,-50);
 
 var scene, camera, renderer;
 
@@ -21,22 +40,26 @@ controls.enableKeys = false;
 
 document.body.appendChild( renderer.domElement );
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-let PM = function(m,v) {
-    let _x = m[0][0]*v.x + m[0][1]*v.y + m[0][2]*v.z + m[0][3]*v.w;
-    let _y = m[1][0]*v.x + m[1][1]*v.y + m[1][2]*v.z + m[1][3]*v.w;
-    let _z = m[2][0]*v.x + m[2][1]*v.y + m[2][2]*v.z + m[2][3]*v.w;
+function PM(mat,v) {
+    let _x = mat[0][0]*v.x + mat[0][1]*v.y + mat[0][2]*v.z + mat[0][3]*v.w;
+    let _y = mat[1][0]*v.x + mat[1][1]*v.y + mat[1][2]*v.z + mat[1][3]*v.w;
+    let _z = mat[2][0]*v.x + mat[2][1]*v.y + mat[2][2]*v.z + mat[2][3]*v.w;
     return new p3(_x,_y,_z);
 }
 
 
 function draw() {
-    //DRAW HYPERCUBE
+    //SAVE PROJECTIONS
+    let i = 0 
+    for (let vertex of hypercube) { 
+        hypercube[i] = PM(IM,vertex);
+        ++i;
+    }
+
+    //DRAW LINES
+         
     
+
 }
 
 function updateHypercube() {
@@ -45,7 +68,7 @@ function updateHypercube() {
 
 function animate() {
 	requestAnimationFrame( animate );
-    updateHypercube();
+    //updateHypercube();
 	renderer.render( scene, camera );
 }
 
